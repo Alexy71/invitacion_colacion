@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Colación · Alexy Sdenka Taboada Chuve</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0e1726;
+    --panel: #121d30;
+    --panel-2: #0b1320;
+    --line: #273349;
+    --ink: #e7ecf3;
+    --ink-dim: #8a97ad;
+    --gold: #d8ac56;
+    --sage: #8fb996;
+    --rose: #d98fa8;
+    --radius: 10px;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    box-sizing: border-box;
+  }
+  :root:not([data-theme="light"]){
+    --bg:#0e1726; --panel:#121d30; --panel-2:#0b1320; --line:#273349; --ink:#e7ecf3; --ink-dim:#8a97ad;
+  }
+  :root[data-theme="dark"]{
+    --bg:#0e1726; --panel:#121d30; --panel-2:#0b1320; --line:#273349; --ink:#e7ecf3; --ink-dim:#8a97ad;
+  }
+  html{ scroll-padding-top: env(safe-area-inset-top, 0px); }
+  *{ box-sizing: border-box; }
+  html,body{ height:100%; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Fraunces', serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection{ background: var(--gold); color:#13202f; }
+  a{ color: var(--sage); }
+  :focus-visible{ outline: 2px solid var(--gold); outline-offset: 3px; }
+
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  .topbar{
+    position: sticky; top:0; z-index:20;
+    padding-top: env(safe-area-inset-top, 0px);
+    background: var(--panel-2);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner{
+    display:flex; align-items:center; gap:10px;
+    padding: 10px 16px;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--ink-dim);
+  }
+  .dots{ display:flex; gap:6px; }
+  .dots span{ width:10px; height:10px; border-radius:50%; display:inline-block; }
+  .dots span:nth-child(1){ background:#e06c75; }
+  .dots span:nth-child(2){ background:#e5c07b; }
+  .dots span:nth-child(3){ background:#98c379; }
+  .filename{ margin-left:4px; }
+
+  main{ max-width: 760px; margin: 0 auto; padding: 0 20px 80px; overflow-x: hidden; }
+
+  .hero{ padding: 64px 0 16px; text-align:center; position:relative; overflow:hidden; }
+  .hero .comment{
+    color: var(--sage); font-size: 13px; letter-spacing:.02em; margin: 0 0 18px;
+  }
+  .floaters{ position:absolute; inset:0; pointer-events:none; z-index:0; }
+  .floaters span{
+    position:absolute; font-size: 22px; opacity:.35;
+    animation: floatUp 7s ease-in-out infinite;
+  }
+  @keyframes floatUp{
+    0%{ transform: translateY(10px) rotate(-4deg); opacity:.15; }
+    50%{ transform: translateY(-16px) rotate(4deg); opacity:.45; }
+    100%{ transform: translateY(10px) rotate(-4deg); opacity:.15; }
+  }
+  .hero p{ position:relative; z-index:1; }
+  .hero h1{
+    position:relative; z-index:1;
+    font-size: clamp(2.1rem, 6vw, 3.4rem);
+    font-weight: 600;
+    line-height: 1.12;
+    margin: 0 0 10px;
+    min-height: 1.2em;
+    background: linear-gradient(90deg, var(--gold), var(--rose), var(--sage), var(--gold));
+    background-size: 300% auto;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: shine 6s linear infinite;
+  }
+  @keyframes shine{ to{ background-position: 300% center; } }
+  .hero .caret{ display:inline-block; width:3px; background:var(--gold); margin-left:2px; animation: blink 1s step-end infinite; -webkit-text-fill-color:initial; }
+  @keyframes blink{ 50%{ opacity:0; } }
+  .family-sub{
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.15rem;
+    color: var(--ink-dim);
+    margin: 0 0 4px;
+  }
+  .lead{
+    font-size: 1rem;
+    color: var(--ink-dim);
+    margin: 4px 0;
+  }
+  .type-annotation{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--ink-dim);
+  }
+  .type-annotation .k{ color:var(--sage); }
+  .type-annotation .v{ color:var(--rose); }
+
+  .codeblock{
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    margin: 36px 0;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 14px;
+    line-height: 1.85;
+    overflow-x: auto;
+  }
+  .codeblock .kw{ color:#7aa2ce; }
+  .codeblock .key{ color: var(--sage); }
+  .codeblock .str{ color: var(--rose); }
+
+  section{ margin: 56px 0; }
+  .label{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--gold);
+    margin: 0 0 14px;
+  }
+
+  .prose{
+    font-size: 1.1rem;
+    line-height: 1.85;
+    color: var(--ink);
+    max-width: 62ch;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .carousel{
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--panel);
+    overflow:hidden;
+  }
+  .carousel::after{
+    content:"";
+    position:absolute; left:0; right:0; top:0; height:3px;
+    background: linear-gradient(90deg, var(--gold), var(--rose), var(--sage), var(--gold));
+    background-size: 300% auto;
+    animation: shine 6s linear infinite;
+    z-index: 2;
+  }
+  .carousel-track{
+    display:flex;
+    transition: transform .45s ease;
+  }
+  .slide{
+    min-width:100%;
+    aspect-ratio: 4/3;
+    display:flex; align-items:center; justify-content:center;
+    background: linear-gradient(135deg, var(--panel) 0%, var(--panel-2) 100%);
+    color: var(--ink-dim);
+    font-family:'JetBrains Mono', monospace;
+    font-size: 14px;
+    overflow: hidden;
+  }
+  .slide img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .carousel-controls{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 12px 14px;
+    border-top: 1px solid var(--line);
+    font-family:'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+  .carousel-controls button{
+    background: none; border: 1px solid var(--line); color: var(--ink);
+    font-family: inherit; font-size: 13px;
+    padding: 6px 12px; border-radius: 6px; cursor:pointer;
+  }
+  .carousel-controls button:hover{ border-color: var(--gold); color: var(--gold); }
+  .indices{ display:flex; gap:6px; flex-wrap:wrap; justify-content:center; }
+  .indices button{
+    width: 26px; height:26px; padding:0; border-radius: 5px;
+    display:flex; align-items:center; justify-content:center;
+    color: var(--ink-dim);
+    font-size: 11px;
+  }
+  .indices button[aria-current="true"]{ color: var(--gold); border-color: var(--gold); }
+
+  .dedication{
+    background: var(--panel);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 30px 28px;
+  }
+  .dedication p{
+    font-size: 1.1rem;
+    line-height: 1.85;
+    margin: 0 0 16px;
+  }
+  .dedication p:last-child{ margin-bottom:0; }
+  .dedication strong{ color: var(--gold); font-weight: 600; }
+  .dedication .sign{
+    margin-top: 18px;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-dim);
+  }
+
+  footer{
+    text-align:center;
+    padding: 30px 0 10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-dim);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .carousel-track{ transition:none; }
+    .hero .caret{ animation:none; }
+    .hero h1{ animation:none; -webkit-text-fill-color:var(--ink); color:var(--ink); }
+    .floaters span{ animation:none; display:none; }
+    .carousel::after{ animation:none; }
+  }
+
+  @media (max-width: 480px){
+    .codeblock{ font-size: 12.5px; padding: 18px; }
+    .hero{ padding: 48px 0 28px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <span class="dots"><span></span><span></span><span></span></span>
+    <span class="filename">colacion.py — ceremonia</span>
+  </div>
+</div>
+
+<main>
+
+  <section class="hero">
+    <div class="floaters" aria-hidden="true">
+      <span style="top:8%; left:6%; animation-delay:0s;">🎓</span>
+      <span style="top:18%; right:8%; animation-delay:1.2s;">💻</span>
+      <span style="top:55%; left:3%; animation-delay:2.4s;">✨</span>
+      <span style="top:62%; right:5%; animation-delay:.6s;">🎉</span>
+      <span style="top:35%; left:14%; animation-delay:1.8s;">⌨️</span>
+      <span style="top:40%; right:16%; animation-delay:3s;">🚀</span>
+    </div>
+    <h2 class="comment mono">/** 🎓 Ceremonia de Colación de Grado */</h2>
+    <p class="family-sub">Ciro José Taboada Pérez</p>
+    <p class="family-sub">Amelia Asunta Chuve Chore</p>
+    <br>
+    <p class="lead">tienen el honor y el agrado de invitarle a usted</p>
+    <p class="lead">a la ceremonia de colación de su hija:</p>
+    <br>
+    <h1 id="typedName" aria-label="Alexy Sdenka Taboada Chuve"></h1>
+    <br>
+    <p class="lead">que recibirá el título en la carrera de:</p>
+    <p class="type-annotation"><span class="v">"Ing. en Ciencias de la Computación"</span> <span aria-hidden="true">💻</span></p>
+  </section>
+
+  <section>
+    <p class="prose">Con gran alegría y emoción, tenemos el honor de invitarle a compartir con nosotros un momento muy especial, celebración que representa el fruto de años de esfuerzo, dedicación y perseverancia. Será un privilegio contar con su presencia para acompañarnos en este importante logro y ser parte de un recuerdo que permanecerá para siempre en nuestras vidas.</p>
+  </section>
+
+  <section>
+    <p class="label">// evento 📅</p>
+    <div class="codeblock">
+<span class="kw">const</span> evento = {<br>
+&nbsp;&nbsp;<span class="key">fecha</span>: <span class="str">"Viernes, 2 de octubre"</span>,<br>
+&nbsp;&nbsp;<span class="key">hora</span>: <span class="str">"09:00 am"</span>,<br>
+&nbsp;&nbsp;<span class="key">lugar</span>: <span class="str">"Facultad de Tecnología"</span>,<br>
+&nbsp;&nbsp;<span class="key">direccion</span>: <span class="str">"Regimiento Campos 6 de Infantería Nº180"</span>,<br>
+};
+    </div>
+  </section>
+
+  <section>
+    <p class="label">// mensaje 💌</p>
+    <div class="dedication">
+      <p>Hoy no solo celebramos tu graduación, celebramos también todo el camino que recorriste para llegar hasta aquí: tus esfuerzos, tus sacrificios, las veces que dudaste y aun así seguiste adelante. Nos llena de orgullo verte alcanzar esta meta que alguna vez fue un sueño. Que este logro te recuerde siempre la fortaleza que llevas dentro y que cada nuevo comienzo esté lleno de ilusiones, aprendizajes y momentos felices.</p>
+      <p><strong>Que nunca pierdas esa esencia que te hace especial y que siempre tengas el valor de ir detrás de tus sueños. Hoy celebramos tu logro, pero sobre todo, celebramos a la maravillosa persona en la que te has convertido. ¡Felicitaciones, querida egresada! 🎉🎓</strong></p>
+      <p class="sign mono">— con cariño, tu familia Taboada Chuve ✨</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="mono">// EOF — Alexy Sdenka Taboada Chuve · Ing. en Ciencias de la Computación 🎓</footer>
+
+<script>
+(function(){
+  var el = document.getElementById('typedName');
+  var full = "Alexy Sdenka Taboada Chuve";
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduced){
+    el.textContent = full;
+  } else {
+    var i = 0;
+    el.innerHTML = '<span class="caret">&nbsp;</span>';
+    function tick(){
+      if(i <= full.length){
+        el.innerHTML = full.slice(0,i) + '<span class="caret">&nbsp;</span>';
+        i++;
+        setTimeout(tick, 55);
+      }
+    }
+    setTimeout(tick, 350);
+  }
+
+  var track = document.getElementById('track');
+  var indicesWrap = document.getElementById('indices');
+  var carouselEl = document.getElementById('carousel');
+  var total = 10;
+  for(var n=1;n<=total;n++){
+    var slide = document.createElement('div');
+    slide.className = 'slide';
+    var img = document.createElement('img');
+    img.src = 'images/' + n + '.jpg';
+    img.alt = 'Fotografía ' + n + ' de la egresada Alexy Sdenka Taboada Chuve';
+    img.loading = 'lazy';
+    slide.appendChild(img);
+    track.appendChild(slide);
+
+    var dot = document.createElement('button');
+    dot.type = 'button';
+    dot.setAttribute('aria-label','Ir a foto '+n);
+    dot.textContent = '['+(n-1)+']';
+    dot.addEventListener('click', function(idx){ return function(){ goTo(idx); resetAutoplay(); } }(n-1));
+    indicesWrap.appendChild(dot);
+  }
+
+  var current = 0;
+  function render(){
+    track.style.transform = 'translateX(-' + (current*100) + '%)';
+    Array.prototype.forEach.call(indicesWrap.children, function(d, idx){
+      d.setAttribute('aria-current', idx===current ? 'true' : 'false');
+    });
+  }
+  function goTo(idx){
+    current = (idx + total) % total;
+    render();
+  }
+  document.getElementById('prevBtn').addEventListener('click', function(){ goTo(current-1); resetAutoplay(); });
+  document.getElementById('nextBtn').addEventListener('click', function(){ goTo(current+1); resetAutoplay(); });
+  render();
+
+  
+})();
+</script>
+</body>
+</html>
